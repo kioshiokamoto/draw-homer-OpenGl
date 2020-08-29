@@ -19,7 +19,7 @@ GLuint renderingProgram;
 
 using namespace std;
 #define N 9
-#define dibujo 21
+#define dibujo 24
 
 GLuint m_VAO;
 GLuint m_VBO[4];
@@ -30,16 +30,7 @@ int dimVertices = numberOfVertices*3 ;
 GLfloat ojoIzq[156];
 GLfloat ojoDer[156];
 
-GLfloat pcontrol[N][2] = {
-		{-0.2,  -1.0},
-		{-0.2, -0.7},
-		{-0.3, -0.6}
-};
-GLfloat pOjos[3][2] = {
-		{-0.2,  -1.0},
-		{-0.2, -0.7},
-		{-0.3, -0.6}
-};
+
 
 
 
@@ -275,6 +266,43 @@ GLfloat pcontrolTest[dibujo][N][2] = {
 				{-0.37, 0.3},
 				{-0.37, 0.3},
 				{-0.28, 0.11}
+		},
+		{
+				{-0.25, -0.2}, //Orejita arriba
+				{-0.25, -0.2},
+				{-0.25, -0.2},
+				{-0.25, -0.2},
+				{-0.25, -0.2},
+				{-0.25, -0.2},
+				{-0.25, -0.2},
+				{-0.35, -0.1},
+				{-0.40, -0.25}
+
+		},
+		{
+				{-0.32, -0.2}, //Orejita abajo
+				{-0.32, -0.2},
+				{-0.32, -0.2},
+				{-0.32, -0.2},
+				{-0.32, -0.2},
+				{-0.32, -0.2},
+				{-0.32, -0.2},
+				{-0.40, -0.3},
+				{-0.25, -0.3}
+
+		},
+
+		{
+				{0.041, -0.32}, //Mueca boca
+				{0.041, -0.32},
+				{0.041, -0.32},
+				{0.041, -0.32},
+				{0.041, -0.32},
+				{0.041, -0.32},
+				{0.041, -0.32},
+				{0.001, -0.35},
+				{0.02, -0.4}
+
 		}
 
 
@@ -461,6 +489,9 @@ void display(GLFWwindow* window, double currentTime) {
 	glDrawArrays(GL_LINE_STRIP, (18*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (19*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (20*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+	glDrawArrays(GL_LINE_STRIP, (21*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+	glDrawArrays(GL_LINE_STRIP, (22*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+	glDrawArrays(GL_LINE_STRIP, (23*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 
 
 	//Dibujo de ojo izquierdo
