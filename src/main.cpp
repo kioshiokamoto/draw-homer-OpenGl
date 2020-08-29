@@ -1,9 +1,3 @@
-//============================================================================
-// Name        : Draw Bezier Curve in OpenGL Modern.
-// Professor   : Herminio Paucar.
-// Version     :
-// Description :
-//============================================================================
 
 // Include standard headers
 #include <stdio.h>
@@ -30,6 +24,12 @@ using namespace std;
 GLuint m_VAO;
 GLuint m_VBO[4];
 
+int numberOfVertices = 52;
+int dimVertices = numberOfVertices*3 ;
+
+GLfloat ojoIzq[156];
+GLfloat ojoDer[156];
+
 GLfloat pcontrol[N][2] = {
 		{-0.2,  -1.0},
 		{-0.2, -0.7},
@@ -45,7 +45,7 @@ GLfloat pOjos[3][2] = {
 
 GLfloat pcontrolTest[dibujo][N][2] = {
 		{
-				{-0.2,  -1.0},
+				{-0.2,  -1.0}, //Inicio de dibujo (izquierda)
 				{-0.2, -0.7},
 				{-0.2, -0.7},
 				{-0.2, -0.7},
@@ -282,11 +282,7 @@ GLfloat pcontrolTest[dibujo][N][2] = {
 };
 
 
-int numberOfVertices = 50+2;
-int dimVertices = numberOfVertices*3 ;
 
-GLfloat ojoIzq[156];
-GLfloat ojoDer[156];
 
 
 void crearOjos(GLfloat m_Vertices[],GLfloat x,GLfloat y){
@@ -320,16 +316,7 @@ void crearOjos(GLfloat m_Vertices[],GLfloat x,GLfloat y){
 int numPointsBz;
 int nPointsCurveBz;
 
-/********************/
-/*
-vector<float> graficaPuntosBezier() {
-  vector<float> temp;
-  for (int i = 0; i < N; i++) {
-    temp.push_back(pcontrol[i][0]);
-    temp.push_back(pcontrol[i][1]);
-  }
-  return temp;
-} */
+
 vector<float> graficaPuntosBezier() {
   vector<float> temp;
   for(int j=0; j< dibujo;j++){
@@ -342,7 +329,6 @@ vector<float> graficaPuntosBezier() {
   return temp;
 }
 
-/********************/
 float factorial(int n) {
   float p = 1;
   for (int i = 1; i <= n; i++)
@@ -350,21 +336,9 @@ float factorial(int n) {
   return p;
 }
 
-/********************/
 float CoefNewton(int n, int k) {
   return factorial(n) / (factorial(k) * factorial(n - k));
 }
-
-/********************/
-/*
-float CurvaBezier(float t, int axis) {
-	float suma = 0.0;
-	for (int i = 0; i < N; i++) {
-		suma += pcontrol[i][axis] * CoefNewton(N - 1, i) * pow(t, N - 1 - i)
-				* pow(1.0 - t, i);
-	}
-	return suma;
-} */
 
 float CurvaBezier(float t, int axis, GLfloat control [][2]) {
 	float suma = 0.0;
@@ -400,28 +374,22 @@ void init (GLFWwindow* window) {
     glGenBuffers(4, m_VBO);
 
 
-
+    //Se almacenan los puntos que generan grafica
 	vector<float> pBezier = graficaPuntosBezier();
 
 	numPointsBz = pBezier.size()/2;
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[0]);
-	// Reserva memoria na GPU para um TARGET receber dados
-	// Copia esses dados pra essa área de memoria
+
 	glBufferData(
-			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-			pBezier.size()*sizeof(GLfloat),	// tamanho do buffer
-			(void*)&pBezier[0],			// Dados a serem copiados pra GPU
-			GL_STATIC_DRAW);		// Política de acesso aos dados, para otimização
+			GL_ARRAY_BUFFER,
+			pBezier.size()*sizeof(GLfloat),
+			(void*)&pBezier[0],
+			GL_STATIC_DRAW);
 
-
+	//Se generan puntos de grafica
 	vector<float> pCBezier = graficaCurvaBezier();
-	/*
-	for(int i = 0 ; i< pCBezier.size();i++){
-			cout<<pCBezier[i]<<endl;
-		}*/
 
 	nPointsCurveBz = pCBezier.size()/2;
-	//cout<<nPointsCurveBz<<endl;
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[1]);
 	glBufferData(
 			GL_ARRAY_BUFFER,
@@ -429,36 +397,36 @@ void init (GLFWwindow* window) {
 			(void*)&pCBezier[0],
 			GL_STATIC_DRAW);
 
-
+	//Se crea ojo izquierdo
 	crearOjos(ojoIzq,-1.0,15);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[2]);
 	glBufferData(
-	    			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-					dimVertices* sizeof(GLfloat),	// tamanho do buffer
-	    			(void*)ojoIzq,			// Dados a serem copiados pra GPU
-	    			GL_STATIC_DRAW);
+	    	GL_ARRAY_BUFFER,
+			dimVertices* sizeof(GLfloat),
+	    	(void*)ojoIzq,
+	    	GL_STATIC_DRAW);
 
-
+	//Se crea ojo derecho
 	crearOjos(ojoDer,18,18);
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[3]);
 	glBufferData(
-		    			GL_ARRAY_BUFFER,	// TARGET associado ao nosso buffer
-						dimVertices* sizeof(GLfloat),	// tamanho do buffer
-		    			(void*)ojoDer,			// Dados a serem copiados pra GPU
-		    			GL_STATIC_DRAW);
+		    GL_ARRAY_BUFFER,
+			dimVertices* sizeof(GLfloat),
+		    (void*)ojoDer,
+		   	GL_STATIC_DRAW);
 
 }
 
 void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
 
-    // Clear the screen to black
+
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    glEnableVertexAttribArray(0);
 
-    glEnableVertexAttribArray(0);	// Habilita este atributo Layout 0
 
-    // Draw Control Points
+    // Dibujar puntos de control
     /*
     glBindBuffer(GL_ARRAY_BUFFER, m_VBO[0]);
 	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
@@ -466,13 +434,6 @@ void display(GLFWwindow* window, double currentTime) {
 	glDrawArrays(GL_POINTS, 0, numPointsBz);
 	*/
 
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[2]);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, numberOfVertices);
-
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[3]);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
-    glDrawArrays(GL_TRIANGLE_FAN, 0, numberOfVertices);
 
 
 	// Draw Curves Surfaces
@@ -493,13 +454,24 @@ void display(GLFWwindow* window, double currentTime) {
 	glDrawArrays(GL_LINE_STRIP, (12*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (13*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (14*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	//Detalles
+	//Detalles de homero
 	glDrawArrays(GL_LINE_STRIP, (15*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (16*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (17*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (18*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (19*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (20*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+
+
+	//Dibujo de ojo izquierdo
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[2]);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, numberOfVertices);
+	//Dibujo de ojo derecho
+	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[3]);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glDrawArrays(GL_TRIANGLE_FAN, 0, numberOfVertices);
+
 }
 
 int main(void) {
@@ -510,7 +482,7 @@ int main(void) {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE); 	// Resizable option.
+	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     GLFWwindow* window = glfwCreateWindow(800, 800, "Kioshi Okamoto - Homer", NULL, NULL);
     glfwMakeContextCurrent(window);
