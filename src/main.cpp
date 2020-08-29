@@ -19,7 +19,7 @@ GLuint renderingProgram;
 
 using namespace std;
 #define N 9
-#define dibujo 24
+#define dibujo 25
 
 GLuint m_VAO;
 GLuint m_VBO[4];
@@ -303,7 +303,20 @@ GLfloat pcontrolTest[dibujo][N][2] = {
 				{0.001, -0.35},
 				{0.02, -0.4}
 
+		},
+		{
+				{0.38,  -0.965}, //Cierre de imagen
+				{0.38,  -0.965},
+				{0.38,  -0.965},
+				{0.38,  -0.965},
+				{0.38,  -0.965},
+				{0.38,  -0.965},
+				{0.38,  -0.965},
+				{0.38,  -0.965},
+				{-0.25,  -1.0}
+
 		}
+
 
 
 
@@ -492,6 +505,7 @@ void display(GLFWwindow* window, double currentTime) {
 	glDrawArrays(GL_LINE_STRIP, (21*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (22*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (23*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+	glDrawArrays(GL_LINE_STRIP, (24*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 
 
 	//Dibujo de ojo izquierdo
