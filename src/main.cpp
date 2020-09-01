@@ -23,6 +23,7 @@ using namespace std;
 
 GLuint m_VAO;
 GLuint m_VBO[4];
+//GLuint m_VBO1;
 
 int numberOfVertices = 52;
 int dimVertices = numberOfVertices*3 ;
@@ -31,298 +32,311 @@ GLfloat ojoIzq[156];
 GLfloat ojoDer[156];
 
 
-
-
-
 GLfloat pcontrolTest[dibujo][N][2] = {
 		{
-				{-0.2,  -1.0}, //Inicio de dibujo (izquierda)
-				{-0.2, -0.7},
-				{-0.2, -0.7},
-				{-0.2, -0.7},
-				{-0.2, -0.7},
-				{-0.2, -0.6},
-				{-0.22, -0.5},
-				{-0.29, -0.4},
-				{-0.29, -0.4}
+		{-0.3,  -0.4}, //Inicio de dibujo (izquierda)
+		{-0.3, -0.5},
+		{-0.3, -0.6},
+		{-0.35, -0.65},
+		{-0.35, -0.7},
+		{-0.375, -0.83},
+		{-0.375, -0.83},
+		{-0.375, -0.83},
+		{-0.375, -0.83}
 		},
 
 		{
-				{-0.22,  -0.33},
-				{-0.29, -0.4},
-				{-0.32, -0.45},
-				{-0.38, -0.47},
-				{-0.45, -0.35},
-				{-0.7,0.0},
-				{-0.29, 0.0},
-				{-0.22,  -0.1},
-				{-0.22,  -0.1}
-		},
-		{
-				{-0.35, -0.07},
-				{-0.5,  0.5},
-				{-0.5,  0.5},
-				{-0.5,  0.5},
-				{-0.5,  0.5},
-				{-0.5,  0.5},
-				{-0.5,  0.5},
-				{-0.5,  0.5},
-				{-0.5,  0.5}
-		},
-		{
-				{-0.5,  0.5},
-				{-0.5,  0.6},
-				{-0.475,  0.65},
-				{-0.450,  0.7},
-				{-0.5,  0.75},
-				{-0.4,  0.8},
-				{-0.375,  0.85},
-				{-0.35,  0.85},
-				{-0.35,  0.85}
-		},
-		{
-				{-0.35,  0.85}, //Aca iniciar cabello
-				{-0.34,  0.87},
-				{-0.33,  0.88},
-				{-0.30,  0.9},
-				{-0.30,  0.9},
-				{-0.30,  0.9},
-				{0.15,  1.0},
-				{0.16,  0.98},
-				{0.16,  0.98}
-		},
-		{
-				{0.16,  0.98},
-				{0.385,  0.93},
-				{0.31,  0.83},
-				{0.335,  0.83},
-				{0.360,  0.78},
-				{0.385,  0.73},
-				{0.371,  0.68},
-				{0.45,  0.43},
-				{0.45,  0.43}
-		},
-		{
-				{0.43,  0.15}, //Ojo derecho
-				{0.50,  0.25},
-				{0.56,  0.35},
-				{0.45,  0.43},
-				{0.40,  0.50},
-				{0.38,  0.50},
-				{0.30,  0.6},
-				{0.20,  0.53},
-				{0.15,  0.40}
-		},
-		{
-				{0.15,  0.40},//Ojo izquierdo
-				{0.0,  0.60},
-				{-0.15,  0.50},
-				{-0.18,  0.4},
-				{-0.25,  0.3},
-				{-0.15,  0.1},
-				{0.15,  -0.20}, //Ref para nariz
-				{0.15,  0.40},
-				{0.15,  0.40}
-		},
-		{
-				{0.43,  0.15}, //Parte superior de nariz
-				{0.43,  0.15},
-				{0.43,  0.15},
-				{0.43,  0.15},
-				{0.55,  0.3},
-				{0.39,  0.275},
-				{0.29,  0.25},
-				{0.19,  0.225},
-				{0.09,  0.20}
-		},
-		{
-				{0.43,  0.15}, //Parte inferior de nariz
-				{0.40,  0.13},
-				{0.40,  0.13},
-				{0.40,  0.13},
-				{0.40,  0.13},
-				{0.40,  0.13},
-				{0.40,  0.13},
-				{0.40,  0.13},
-				{0.09,  0.03}
-		},
-		{
-				{0.40,  0.13},
-				{0.45,  0.08},
-				{0.48,  0.09},
-				{0.50,  0.0},
-				{0.53,  -0.01},
-				{0.55,  -0.06},
-				{0.58,  -0.06},
-				{0.58,  -0.06},
-				{0.60,  -0.30}
-		},
-		{
-				{0.60,  -0.28},
-				{0.63,  -0.30},
-				{0.67,  -0.32},
-				{0.63,  -0.35},
-				{0.5,  -0.38},
-				{0.4,  -0.40},
-				{0.3,  -0.41},
-				{0.3,  -0.41},
-				{0.0,  -0.35}
-		},
-		{
-				{0.13,  0.00},
-				{-0.05,  0.005},
-				{-0.1,  -0.2},
-				{-0.1,  -0.3},
-				{-0.15,  -0.4},
-				{0.1,  -0.6},
-				{0.2,  -0.7},
-				{0.4,  -0.6},
-				{0.50,  -0.4}
-		},
-		{
-				{0.48,  -0.43},
-				{0.48,  -0.42},
-				{0.48,  -0.42},
-				{0.48,  -0.42},
-				{0.48,  -0.42},
-				{0.48,  -0.42},
-				{0.48,  -0.42},
-				{0.53,  -0.42},
-				{0.55,  -0.35}
-		},
-		{
-				{0.38,  -0.55},
-				{0.38,  -0.55},
-				{0.38,  -0.55},
-				{0.38,  -0.55},
-				{0.38,  -0.55},
-				{0.38,  -0.55},
-				{0.38,  -0.55},
-				{0.38,  -0.55},
-				{0.38,  -1}
-		},
-		{
-				{-0.35,  0.85}, //1er cabello
-				{-0.35,  0.85},
-				{-0.35,  0.85},
-				{-0.35,  0.85},
-				{-0.35,  0.85},
-				{-0.35,  0.85},
-				{-0.35,  1.1},
-				{-0.15,  1.1},
-				{0.04,  0.95}
-		},
-		{
-				{-0.15,  0.93}, //2do cabello
-				{-0.15,  0.93},
-				{-0.15,  0.93},
-				{-0.15,  0.93},
-				{-0.15,  0.93},
-				{-0.15,  0.93},
-				{-0.15,  1.13},
-				{0.15,  1.13},
-				{0.20,  0.95}
-		},
-		{
-				{-0.4, 0.11}, //Patilla 1 izq
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.51, 0.3}
-		},
-		{
-				{-0.50, 0.28}, //Patilla 2 izq
-				{-0.50, 0.28},
-				{-0.50, 0.28},
-				{-0.50, 0.28},
-				{-0.50, 0.28},
-				{-0.50, 0.28},
-				{-0.50, 0.28},
-				{-0.50, 0.28},
-				{-0.49, 0.08}
-		},
-		{
-				{-0.4, 0.11}, //Patilla 2 derecha
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.4, 0.11},
-				{-0.37, 0.3}
-		},
-		{
-				{-0.37, 0.3}, //Patilla 2 izq
-				{-0.37, 0.3},
-				{-0.37, 0.3},
-				{-0.37, 0.3},
-				{-0.37, 0.3},
-				{-0.37, 0.3},
-				{-0.37, 0.3},
-				{-0.37, 0.3},
-				{-0.28, 0.11}
-		},
-		{
-				{-0.25, -0.2}, //Orejita arriba
-				{-0.25, -0.2},
-				{-0.25, -0.2},
-				{-0.25, -0.2},
-				{-0.25, -0.2},
-				{-0.25, -0.2},
-				{-0.25, -0.2},
-				{-0.35, -0.1},
-				{-0.40, -0.25}
-
-		},
-		{
-				{-0.32, -0.2}, //Orejita abajo
-				{-0.32, -0.2},
-				{-0.32, -0.2},
-				{-0.32, -0.2},
-				{-0.32, -0.2},
-				{-0.32, -0.2},
-				{-0.32, -0.2},
-				{-0.40, -0.3},
-				{-0.25, -0.3}
-
+		{-0.22,  -0.33},
+		{-0.29, -0.4},
+		{-0.32, -0.45},
+		{-0.38, -0.47},
+		{-0.45, -0.35},
+		{-0.7, 0.0},
+		{-0.29, 0.0},
+		{-0.22,  -0.1},
+		{-0.22,  -0.1}
 		},
 
 		{
-				{0.041, -0.32}, //Mueca boca
-				{0.041, -0.32},
-				{0.041, -0.32},
-				{0.041, -0.32},
-				{0.041, -0.32},
-				{0.041, -0.32},
-				{0.041, -0.32},
-				{0.001, -0.35},
-				{0.02, -0.4}
-
+		{-0.35, -0.13},
+		{-0.5,  0.5},
+		{-0.5,  0.5},
+		{-0.5,  0.5},
+		{-0.5,  0.5},
+		{-0.5,  0.5},
+		{-0.5,  0.5},
+		{-0.5,  0.5},
+		{-0.5,  0.5}
 		},
-		{
-				{0.38,  -0.965}, //Cierre de imagen
-				{0.38,  -0.965},
-				{0.38,  -0.965},
-				{0.38,  -0.965},
-				{0.38,  -0.965},
-				{0.38,  -0.965},
-				{0.38,  -0.965},
-				{0.38,  -0.965},
-				{-0.25,  -1.0}
 
+		{
+		{-0.5,  0.49},
+		{-0.5,  0.6},
+		{-0.475,  0.65},
+		{-0.450,  0.7},
+		{-0.5,  0.75},
+		{-0.4,  0.8},
+		{-0.375,  0.85},
+		{-0.35,  0.85},
+		{-0.35,  0.85}
+		},
+
+		{
+		{-0.35,  0.85}, //Aca iniciar cabello
+		{-0.34,  0.87},
+		{-0.33,  0.88},
+		{-0.30,  0.9},
+		{-0.30,  0.9},
+		{-0.30,  0.9},
+		{0.15,  1.0},
+		{0.16,  0.98},
+		{0.16,  0.98}
+		},
+
+		{
+		{0.16,  0.98}, // Cabeza parte superior derecha
+		{0.385,  0.93},
+		{0.31,  0.83},
+		{0.335,  0.83},
+		{0.360,  0.78},
+		{0.385,  0.73},
+		{0.371,  0.68},
+		{0.45,  0.47},
+		{0.45,  0.47}
+		},
+
+		{
+		{0.446,  0.226}, //Ojo derecho
+		{0.50,  0.25},
+		{0.56,  0.35},
+		{0.48,  0.48},
+		{0.44,  0.50},
+		{0.42,  0.50},
+		{0.34,  0.6},
+		{0.20,  0.53},
+		{0.18,  0.40}
+		},
+
+		{
+		{0.18,  0.40},//Ojo izquierdo
+		{0.10,  0.60},
+		{-0.20,  0.50},
+		{-0.23,  0.4},
+		{-0.30,  0.2},
+		{-0.15,  0.1},
+		{0.32,  -0.20}, //Ref para nariz
+		{0.23,  0.40},
+		{0.18,  0.40}
+		},
+
+		{
+		{0.48,  0.08}, //Parte superior de nariz
+		{0.48,  0.08},
+		{0.48,  0.08},
+		{0.48,  0.08},
+		{0.55,  0.3},
+		{0.42,  0.275},
+		{0.36,  0.25},
+		{0.26,  0.225},
+		{0.20,  0.23}
+		},
+
+		{
+		{0.48,  0.076}, //Parte inferior de nariz
+		{0.40,  0.07},
+		{0.40,  0.07},
+		{0.40,  0.07},
+		{0.40,  0.07},
+		{0.40,  0.07},
+		{0.40,  0.07},
+		{0.40,  0.07},
+		{0.09,  0.035}
+		},
+
+		{
+		{0.48,  0.076}, //Boca derecha circunferencia superior
+		{0.45,  0.08},
+		{0.48,  0.09},
+		{0.50,  0.0},
+		{0.53,  -0.01},
+		{0.55,  -0.06},
+		{0.58,  -0.06},
+		{0.58,  -0.06},
+		{0.60,  -0.30}
+		},
+
+		{
+		{0.0,  -0.35}, //sonrisa
+		{0.3,  -0.41},
+		{0.3,  -0.41},
+		{0.4,  -0.40},
+		{0.5,  -0.38},
+		{0.63,  -0.35},
+		{0.67,  -0.32},
+		{0.63,  -0.30},
+		{0.60,  -0.30}
+		},
+
+		{
+		{0.125,  0.041}, // Boca circunferencia izquierda
+		{-0.05,  0.005},
+		{-0.1,  -0.2},
+		{-0.1,  -0.3},
+		{-0.15,  -0.4},
+		{0.1,  -0.6},
+		{0.2,  -0.7},
+		{0.4,  -0.6},
+		{0.50,  -0.4}
+		},
+
+		{
+		{0.50,  -0.40}, //Boca semi circulito
+		{0.50,  -0.39},
+		{0.50,  -0.39},
+		{0.50,  -0.39},
+		{0.50,  -0.39},
+		{0.50,  -0.39},
+		{0.50,  -0.39},
+		{0.53,  -0.39},
+		{0.55,  -0.36}
+		},
+
+		{
+		{0.365,  -1.072},
+		{0.365,  -0.95},
+		{0.355,  -0.95},
+		{0.345,  -0.90},
+		{0.34,  -0.85},//cambio de puntos, leonidas
+		{0.335,  -0.80},
+		{0.33,  -0.70},
+		{0.33,  -0.60},
+		{0.33,  -0.57}
+		                 //Curva derecha cuello
+		},
+
+		{
+		{-0.25, -0.2}, //Orejita arriba
+		{-0.25, -0.2},
+		{-0.25, -0.2},
+		{-0.25, -0.2},
+		{-0.25, -0.2},
+		{-0.25, -0.2},
+		{-0.25, -0.2},
+		{-0.35, -0.1},
+		{-0.40, -0.25}
+		},
+
+		{
+		{-0.32, -0.2}, //Orejita abajo
+		{-0.32, -0.2},
+		{-0.32, -0.2},
+		{-0.32, -0.2},
+		{-0.32, -0.2},
+		{-0.32, -0.2},
+		{-0.32, -0.2},
+		{-0.40, -0.3},
+		{-0.25, -0.3}
+		},
+
+		{
+		{0.041, -0.32}, //Mueca boca
+		{0.041, -0.32},
+		{0.041, -0.32},
+		{0.041, -0.32},
+		{0.041, -0.32},
+		{0.041, -0.32},
+		{0.041, -0.32},
+		{0.001, -0.35},
+		{0.02, -0.4}
+		},
+
+		{
+		{0.37,  -1.063}, //Cierre de imagen
+		{0.30,  -1.08},
+		{0.25,  -1.08},
+		{0.20,  -1.075},
+		{0.15,  -1.07},
+		{0.10,  -1.065},
+		{0.05,  -1.06},
+		{-0.10,  -1.05},
+		{-0.375,  -0.83}
+		},
+
+		//a partir de aca, solo cambie el orden de las curvas, leonidas
+
+		{
+		{-0.35,  0.85}, //1er cabello
+		{-0.35,  0.85},
+		{-0.35,  0.85},
+		{-0.35,  0.85},
+		{-0.35,  0.85},
+		{-0.35,  0.85},
+		{-0.35,  1.1},
+		{-0.15,  1.1},
+		{0.04,  0.95}
+		},
+
+		{
+		{-0.15,  0.93}, //2do cabello
+		{-0.15,  0.93},
+		{-0.15,  0.93},
+		{-0.15,  0.93},
+		{-0.15,  0.93},
+		{-0.15,  0.93},
+		{-0.15,  1.13},
+		{0.15,  1.13},
+		{0.20,  0.95}
+		},
+
+		{
+		{-0.4, 0.11}, //Patilla 1 izq
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.51, 0.3}
+		},
+
+		{
+		{-0.50, 0.28}, //Patilla 2 izq
+		{-0.50, 0.28},
+		{-0.50, 0.28},
+		{-0.50, 0.28},
+		{-0.50, 0.28},
+		{-0.50, 0.28},
+		{-0.50, 0.28},
+		{-0.50, 0.28},
+		{-0.49, 0.08}
+		},
+
+		{
+		{-0.4, 0.11}, //Patilla 2 derecha
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.4, 0.11},
+		{-0.37, 0.3}
+		},
+
+		{
+		{-0.37, 0.3}, //Patilla 2 izq
+		{-0.37, 0.3},
+		{-0.37, 0.3},
+		{-0.37, 0.3},
+		{-0.37, 0.3},
+		{-0.37, 0.3},
+		{-0.37, 0.3},
+		{-0.37, 0.3},
+		{-0.28, 0.11}
 		}
 
-
-
-
 };
-
-
 
 
 
@@ -392,11 +406,12 @@ float CurvaBezier(float t, int axis, GLfloat control [][2]) {
 
 vector<float> graficaCurvaBezier(void) {
 	vector<float> temp;
+	temp.push_back(0.0); // para triangle fan, leonidas
+	temp.push_back(0.0); // para triangle fan, leonidas
 	for(int i=0; i< dibujo;i++){
 		for (float t = 0; t <= 1; t += 0.01) {
 				temp.push_back(CurvaBezier(t, 0,pcontrolTest[i]));
 				temp.push_back(CurvaBezier(t, 1,pcontrolTest[i]));
-
 		}
 
 	}
@@ -407,13 +422,10 @@ vector<float> graficaCurvaBezier(void) {
 void init (GLFWwindow* window) {
 	renderingProgram = Utils::createShaderProgram("src/vertShader.glsl", "src/fragShader.glsl");
 
-
-
     // Create Vertex Array Object
     glGenVertexArrays(1, &m_VAO);
     glBindVertexArray(m_VAO);
     glGenBuffers(4, m_VBO);
-
 
     //Se almacenan los puntos que generan grafica
 	vector<float> pBezier = graficaPuntosBezier();
@@ -459,12 +471,64 @@ void init (GLFWwindow* window) {
 }
 
 void display(GLFWwindow* window, double currentTime) {
-    glUseProgram(renderingProgram);
 
-
+	glBindVertexArray(m_VAO);
     glClearColor(1.0f, 1.0f, 1.0f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
+    glUseProgram(renderingProgram);
     glEnableVertexAttribArray(0);
+
+    //Aca se hace la pintancion :v, leonisA
+    GLuint position = glGetAttribLocation(renderingProgram, "position");
+    GLuint colorIn = glGetUniformLocation(renderingProgram, "colorIn");
+
+	//int uniformColor = (255.0f, 255.0f, 0.0f);
+    //glUniform3f(uniformColor, 1.0, 0.9, 0.0);
+
+    glEnableVertexAttribArray(position);
+
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[1]);
+    glVertexAttribPointer(
+    		0,
+    		2,
+    		GL_FLOAT,
+    		GL_FALSE,
+    		0,
+    		(void*) 0
+    		);
+
+    //Rostros
+    glUniform3f(colorIn, 0.92f, 0.92f, 0.0f);
+    glDrawArrays(GL_TRIANGLE_FAN, 0, nPointsCurveBz*19/25);
+
+    //boca
+    glUniform3f(colorIn, 0.7f, 0.7f, 0.5f);
+    glDrawArrays(GL_TRIANGLE_FAN, nPointsCurveBz*10/25, nPointsCurveBz*4/25);
+
+    //ojitos
+    glUniform3f(colorIn, 1.0f, 1.0f, 1.0f);
+    glDrawArrays(GL_TRIANGLE_FAN, nPointsCurveBz*6/25+1 , nPointsCurveBz*2/25+ nPointsCurveBz/(25*2));
+
+
+    glUniform3f(colorIn, 0.0f, 0.0f, 0.0f);
+    glPointSize(5);
+
+
+    /*glUniform3f(colorIn, 0.255f, 0.255f, 0.0f);
+    glEnableVertexAttribArray(position);
+    glBindVertexArray(m_VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[4]);
+    glVertexAttribPointer(
+    		position,
+    		2,
+    		GL_FLOAT,
+    		GL_FALSE,
+    		100,
+    		(void*) 0
+    		);
+    glDrawArrays(GL_TRIANGLE_FAN, 10, (int)pcontrolTest+1);*/
+
+
 
 
     // Dibujar puntos de control
@@ -478,23 +542,23 @@ void display(GLFWwindow* window, double currentTime) {
 
 
 	// Draw Curves Surfaces
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO[1]);
-	glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
-	glDrawArrays(GL_LINE_STRIP, 0, nPointsCurveBz/dibujo);
-	glDrawArrays(GL_LINE_STRIP, (nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (2*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (3*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (4*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (5*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (6*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (7*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (8*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (9*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (10*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (11*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (12*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (13*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
-	glDrawArrays(GL_LINE_STRIP, (14*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[1]);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(GLfloat), 0);
+    glDrawArrays(GL_LINE_STRIP, 1, nPointsCurveBz/dibujo); // 1 para omitir el punto de triangle fan
+    glDrawArrays(GL_LINE_STRIP, (nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (2*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (3*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (4*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (5*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (6*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (7*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (8*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (9*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (10*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (11*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (12*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP	, (13*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
+    glDrawArrays(GL_LINE_STRIP, (14*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	//Detalles de homero
 	glDrawArrays(GL_LINE_STRIP, (15*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
 	glDrawArrays(GL_LINE_STRIP, (16*nPointsCurveBz/dibujo)+1, nPointsCurveBz/dibujo-1);
@@ -523,10 +587,10 @@ int main(void) {
     if (!glfwInit()) {
     	exit(EXIT_FAILURE);
     }
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
     GLFWwindow* window = glfwCreateWindow(800, 800, "Kioshi Okamoto - Homer", NULL, NULL);
