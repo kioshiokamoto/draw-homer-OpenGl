@@ -211,7 +211,7 @@ GLfloat pcontrolTest[dibujo][N][2] = {
 		{0.33,  -0.70},
 		{0.33,  -0.60},
 		{0.33,  -0.57}
-		                 //Curva derecha cuello
+
 		},
 
 		{
@@ -261,8 +261,6 @@ GLfloat pcontrolTest[dibujo][N][2] = {
 		{-0.10,  -1.05},
 		{-0.375,  -0.83}
 		},
-
-		//a partir de aca, solo cambie el orden de las curvas, leonidas
 
 		{
 		{-0.35,  0.85}, //1er cabello
@@ -478,12 +476,10 @@ void display(GLFWwindow* window, double currentTime) {
     glUseProgram(renderingProgram);
     glEnableVertexAttribArray(0);
 
-    //Aca se hace la pintancion :v, leonisA
     GLuint position = glGetAttribLocation(renderingProgram, "position");
     GLuint colorIn = glGetUniformLocation(renderingProgram, "colorIn");
 
-	//int uniformColor = (255.0f, 255.0f, 0.0f);
-    //glUniform3f(uniformColor, 1.0, 0.9, 0.0);
+
 
     glEnableVertexAttribArray(position);
 
@@ -512,21 +508,6 @@ void display(GLFWwindow* window, double currentTime) {
 
     glUniform3f(colorIn, 0.0f, 0.0f, 0.0f);
     glPointSize(5);
-
-
-    /*glUniform3f(colorIn, 0.255f, 0.255f, 0.0f);
-    glEnableVertexAttribArray(position);
-    glBindVertexArray(m_VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, m_VBO[4]);
-    glVertexAttribPointer(
-    		position,
-    		2,
-    		GL_FLOAT,
-    		GL_FALSE,
-    		100,
-    		(void*) 0
-    		);
-    glDrawArrays(GL_TRIANGLE_FAN, 10, (int)pcontrolTest+1);*/
 
 
 
@@ -581,6 +562,7 @@ void display(GLFWwindow* window, double currentTime) {
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
 	glDrawArrays(GL_TRIANGLE_FAN, 0, numberOfVertices);
 
+
 }
 
 int main(void) {
@@ -589,11 +571,9 @@ int main(void) {
     }
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 	glfwWindowHint(GLFW_RESIZABLE, GL_FALSE);
 
-    GLFWwindow* window = glfwCreateWindow(800, 800, "Kioshi Okamoto - Homer", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(800, 800, "Homer - OpenGL - Computacion visual", NULL, NULL);
     glfwMakeContextCurrent(window);
 
     if (glewInit() != GLEW_OK) {
